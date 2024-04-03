@@ -1,16 +1,28 @@
 const express = require('express')
-
-const { getCategory, getSubCategory, getDua } = require('./controllers')
+const {
+  getCategories,
+  getSubCategories,
+  getDuasByCategory,
+  getDuasBySubCategory,
+  getDuaById,
+  getDuas,
+} = require('./controllers')
 
 const router = express.Router()
 
-// GET: Category
-router.get('/category', getCategory)
+// GET: Categories and Subcategories
+router.get('/categories', getCategories)
+router.get('/categories/:categoryId/subcategories', getSubCategories)
 
-// GET: Sub Category
-router.get('/sub_category', getSubCategory)
-
-// GET: Dua
-router.get('/dua', getDua)
+// GET: Duas by Category, Subcategory, id
+router.get('/categories/:categoryId/duas', getDuasByCategory)
+router.get(
+  '/categories/:categoryId/subcategories/:subcategoryId/duas',
+  getDuasBySubCategory
+)
+router.get(
+  '/categories/:categoryId/subcategories/:subcategoryId/duas/:duaId',
+  getDuaById
+)
 
 module.exports = router
