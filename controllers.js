@@ -12,11 +12,11 @@ const getCategories = (req, res) => {
 }
 
 const getSubCategories = (req, res) => {
-  const categoryId = req.params.categoryId
+  const { categoryId } = req.params
+
   if (!categoryId) {
     return res.status(400).send('categoryId parameter is required')
   }
-
   db.all(
     'SELECT * FROM sub_category WHERE cat_id = ?',
     [categoryId],
@@ -31,12 +31,10 @@ const getSubCategories = (req, res) => {
 }
 
 const getDuaById = (req, res) => {
-  const { categoryId, subcategoryId, duaId } = req.params
+  const { duaId } = req.params
 
-  if (!categoryId || !subcategoryId) {
-    return res
-      .status(400)
-      .send('categoryId and subcategoryId parameter is required')
+  if (!duaId) {
+    return res.status(400).send('duaId parameter is required')
   }
 
   db.get('SELECT * FROM dua WHERE id = ?', [duaId], (err, rows) => {
@@ -49,6 +47,9 @@ const getDuaById = (req, res) => {
 }
 const getDuasByCategory = (req, res) => {
   const { categoryId } = req.params
+  if (!categoryId) {
+    return res.status(400).send('categoryId parameter is required')
+  }
   db.all('SELECT * FROM dua WHERE cat_id = ?', [categoryId], (err, rows) => {
     if (err) {
       res.status(500).send(err.message)

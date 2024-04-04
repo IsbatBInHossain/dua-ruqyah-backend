@@ -12,17 +12,14 @@ const router = express.Router()
 
 // GET: Categories and Subcategories
 router.get('/categories', getCategories)
-router.get('/categories/:categoryId/subcategories', getSubCategories)
+router.get('/categories/:categoryId/sub-categories', getSubCategories)
 
 // GET: Duas by Category, Subcategory, id
 router.get('/categories/:categoryId/duas', getDuasByCategory)
 router.get(
-  '/categories/:categoryId/subcategories/:subcategoryId/duas',
+  '/categories/:categoryId/sub-categories/:subcategoryId/duas',
   getDuasBySubCategory
 )
-router.get(
-  '/categories/:categoryId/subcategories/:subcategoryId/duas/:duaId',
-  getDuaById
-)
+router.get('/dua/:duaId', getDuaById)
 
 module.exports = router
